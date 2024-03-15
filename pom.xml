@@ -32,13 +32,13 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
-	<!-- Essa biblioteca usa o jakarta persistence -->
-<!--	
+		<!-- Essa biblioteca usa o jakarta persistence, e o Spring Data JPA -->	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
--->
+
+		<!-- Essa biblioteca permite usar o javax.persistence -->	
 		<!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>

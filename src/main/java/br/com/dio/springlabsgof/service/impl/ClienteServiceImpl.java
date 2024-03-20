@@ -2,13 +2,13 @@ package br.com.dio.springlabsgof.service.impl;
 
 import java.util.Optional;
 
-import org.hibernate.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.dio.springlabsgof.model.Cliente;
+import br.com.dio.springlabsgof.model.ClienteRepository;
 import br.com.dio.springlabsgof.model.Endereco;
-import br.com.dio.springlabsgof.repository.ClienteRepository;
-import br.com.dio.springlabsgof.repository.EnderecoRepository;
+import br.com.dio.springlabsgof.model.EnderecoRepository;
 import br.com.dio.springlabsgof.service.ClienteService;
 import br.com.dio.springlabsgof.service.ViaCepService;
 
@@ -20,6 +20,7 @@ import br.com.dio.springlabsgof.service.ViaCepService;
  * 
  */
 
+@Service
 public class ClienteServiceImpl implements ClienteService {
 
 	// Singleton: Injetar os componentes do Spring com @Autowired.

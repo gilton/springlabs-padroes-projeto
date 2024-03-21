@@ -97,5 +97,68 @@ public class Endereco {
 	public void setSiafi(String siafi) {
 		this.siafi = siafi;
 	}
+	
+	// Builder Class
+	public static class Builder {
+        private Endereco endereco;
+
+        public Builder() {
+            endereco = new Endereco();
+        }
+
+        public Builder cep(String cep) {
+            endereco.cep = cep;
+            return this;
+        }
+
+        public Builder logradouro(String logradouro) {
+            endereco.logradouro = logradouro;
+            return this;
+        }
+
+        public Builder complemento(String complemento) {
+            endereco.complemento = complemento;
+            return this;
+        }
+
+        public Builder bairro(String bairro) {
+            endereco.bairro = bairro;
+            return this;
+        }
+
+        public Builder localidade(String localidade) {
+            endereco.localidade = localidade;
+            return this;
+        }
+
+        public Builder uf(String uf) {
+            endereco.uf = uf;
+            return this;
+        }
+
+        public Builder ibge(String ibge) {
+            endereco.ibge = ibge;
+            return this;
+        }
+
+        public Builder gia(String gia) {
+            endereco.gia = gia;
+            return this;
+        }
+
+        public Builder ddd(String ddd) {
+            endereco.ddd = ddd;
+            return this;
+        }
+
+        public Builder siafi(String siafi) {
+            endereco.siafi = siafi;
+            return this;
+        }
+
+        public Endereco build() {
+            return endereco;
+        }
+    }
 
 }

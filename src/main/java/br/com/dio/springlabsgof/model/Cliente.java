@@ -12,7 +12,9 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	private String nome;
+	
 	@ManyToOne
 	private Endereco endereco;
 
@@ -40,4 +42,37 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nome=" + nome + ", endereco=" + endereco + "]";
+	}
+	
+	
+	//Builder Class
+	public static class Builder {
+		private Cliente cliente;
+		
+		public Builder() {
+			cliente = new Cliente();
+		}
+		
+		public Builder id(Long id) {
+			cliente.id = id;
+			return this;
+		}
+		
+		public Builder nome(String nome) {
+			cliente.nome = nome;
+			return this;
+		}
+		
+		public Builder endereco(Endereco endereco) {
+			cliente.endereco = endereco;
+			return this;
+		}
+		
+		public Cliente build() {
+			return cliente;
+		}
+	}
 }

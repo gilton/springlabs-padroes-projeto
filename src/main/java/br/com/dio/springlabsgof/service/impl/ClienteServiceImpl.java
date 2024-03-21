@@ -1,14 +1,15 @@
 package br.com.dio.springlabsgof.service.impl;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.hibernate.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.dio.springlabsgof.model.Cliente;
+import br.com.dio.springlabsgof.model.ClienteRepository;
 import br.com.dio.springlabsgof.model.Endereco;
-import br.com.dio.springlabsgof.repository.ClienteRepository;
-import br.com.dio.springlabsgof.repository.EnderecoRepository;
+import br.com.dio.springlabsgof.model.EnderecoRepository;
 import br.com.dio.springlabsgof.service.ClienteService;
 import br.com.dio.springlabsgof.service.ViaCepService;
 
@@ -20,6 +21,7 @@ import br.com.dio.springlabsgof.service.ViaCepService;
  * 
  */
 
+@Service
 public class ClienteServiceImpl implements ClienteService {
 
 	// Singleton: Injetar os componentes do Spring com @Autowired.
@@ -47,7 +49,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public void inserir(Cliente cliente) {
-		clienteRepository.save(cliente);
+		salvarClienteECep(cliente);
 	}
 
 	@Override
@@ -56,20 +58,9 @@ public class ClienteServiceImpl implements ClienteService {
 		if(clienteEncontrado.isPresent()) {
 			salvarClienteECep(cliente);
 		}
-	}
-
-	private void salvarClienteECep(Cliente cliente) {
-		
-		String cep = cliente.getEndereco().getCep();
-		
-		Endereco endereco = enderecoRepository.findById(cep).orElseGet(() -> {
-			// Caso não exista, integrar com o ViaCEP e persistir o retorno.
-			Endereco novoEndereco = viaCepService.consultarCep(cep);
-			enderecoRepository.save(novoEndereco);
-			return novoEndereco;
-		});
-		cliente.setEndereco(endereco);
-		clienteRepository.save(cliente);
+		else {
+			throw new NoSuchElementException("Cliente não encontrado.");
+		}
 	}
 
 	@Override
@@ -77,6 +68,17 @@ public class ClienteServiceImpl implements ClienteService {
 		clienteRepository.deleteById(id);
 	}
 
-	
+
+	private void salvarClienteECep(Cliente cliente) {
+		
+		String cep = cliente.getEndereco().getCep();
+		Endereco endereco = enderecoRepository.findById(cep).orElseGet(() -> {
+			Endereco novoEndereco = viaCepService.consultarCep(cep);
+			enderecoRepository.save(novoEndereco);
+			return novoEndereco;
+		});
+		cliente.setEndereco(endereco);
+		clienteRepository.save(cliente);
+	}	
 	
 }
